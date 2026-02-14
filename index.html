@@ -17,6 +17,8 @@ body{
   overflow:hidden;
   color:#fff;
 }
+
+/* TARJETA */
 .card{
   background:rgba(255,255,255,0.25);
   padding:22px;
@@ -26,6 +28,8 @@ body{
   max-width:330px;
   z-index:10;
 }
+
+/* FOTO */
 img{
   width:100%;
   max-width:220px;
@@ -33,6 +37,8 @@ img{
   box-shadow:0 0 25px rgba(255,105,180,1);
   margin-bottom:12px;
 }
+
+/* BOTONES */
 button{
   padding:12px 22px;
   border:none;
@@ -43,8 +49,13 @@ button{
 }
 .yes{background:#ff2e63;color:white;}
 .no{background:white;color:#ff2e63;position:absolute;}
-.contador{margin-top:10px;font-size:14px;}
 
+.contador{
+  margin-top:10px;
+  font-size:14px;
+}
+
+/* LLUVIA */
 .heart{
   position:absolute;
   animation:fall linear infinite;
@@ -59,17 +70,23 @@ button{
 
 <body>
 
+<!-- BOTÓN INICIAL (NECESARIO EN CELULAR) -->
 <button id="startBtn" class="yes" style="position:fixed;top:15px;z-index:20;">
 💘 Toca aquí para empezar 💘
 </button>
 
-<audio id="musica" loop>
+<!-- MÚSICA INFINITA -->
+<audio id="musica" loop preload="auto">
   <source src="straykids.mp3" type="audio/mpeg">
 </audio>
 
+<!-- TARJETA -->
 <div class="card" id="card" style="display:none;">
   <h1>💘 Gianella 💘</h1>
-  <img src="foto.png.Heic" alt="Nosotros">
+
+  <!-- FOTO (PNG o JPG) -->
+  <img src="foto.png" alt="Nosotros">
+
   <p>¿Quieres ser mi San Valentín?</p>
 
   <button class="yes" onclick="aceptar()">Sí 💕</button>
@@ -81,46 +98,56 @@ button{
 </div>
 
 <script>
-let clicks=0,total=5;
-const musica=document.getElementById("musica");
-const card=document.getElementById("card");
-const startBtn=document.getElementById("startBtn");
+let clicks = 0;
+const total = 5;
 
-startBtn.onclick=()=>{
+const musica = document.getElementById("musica");
+const card = document.getElementById("card");
+const startBtn = document.getElementById("startBtn");
+
+/* INICIAR */
+startBtn.onclick = () => {
   musica.play().catch(()=>{});
-  startBtn.style.display="none";
-  card.style.display="block";
-}
+  startBtn.style.display = "none";
+  card.style.display = "block";
+};
 
+/* BOTÓN SÍ */
 function aceptar(){
   if(musica.paused) musica.play().catch(()=>{});
+
   clicks++;
-  document.getElementById("contador").innerText=`Vas ${clicks} / ${total} 💖`;
-  if(clicks>=total){
-    document.body.innerHTML=`
-      <div style="text-align:center;z-index:10;">
+  document.getElementById("contador").innerText =
+    `Vas ${clicks} / ${total} 💖`;
+
+  if(clicks >= total){
+    document.body.innerHTML = `
+      <div style="text-align:center;">
         <h1>💞 Te amo Gianella 💞</h1>
         <p>Eres lo más bonito que me pasó 💖</p>
-      </div>`;
+      </div>
+    `;
   }
 }
 
+/* BOTÓN NO */
 function moverBoton(btn){
-  btn.style.top=Math.random()*80+"vh";
-  btn.style.left=Math.random()*80+"vw";
+  btn.style.top = Math.random()*80 + "vh";
+  btn.style.left = Math.random()*80 + "vw";
 }
 
+/* LLUVIA DE CORAZONES */
 function lluvia(){
-  const h=document.createElement("div");
-  h.className="heart";
-  h.innerText=Math.random()>0.5?"💖":"✨";
-  h.style.left=Math.random()*100+"vw";
-  h.style.fontSize=(Math.random()*22+16)+"px";
-  h.style.animationDuration=(Math.random()*3+3)+"s";
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.innerText = Math.random() > 0.5 ? "💖" : "✨";
+  h.style.left = Math.random()*100 + "vw";
+  h.style.fontSize = (Math.random()*22 + 16) + "px";
+  h.style.animationDuration = (Math.random()*3 + 3) + "s";
   document.body.appendChild(h);
-  setTimeout(()=>h.remove(),6000);
+  setTimeout(() => h.remove(), 6000);
 }
-setInterval(lluvia,250);
+setInterval(lluvia, 250);
 </script>
 
 </body>
