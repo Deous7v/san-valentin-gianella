@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💖 Gianella 💖</title>
+
+<style>
+body{
+  margin:0;
+  min-height:100vh;
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+  font-family:Arial,sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+  color:#fff;
+}
+.card{
+  background:rgba(255,255,255,0.25);
+  padding:22px;
+  border-radius:25px;
+  text-align:center;
+  box-shadow:0 15px 40px rgba(0,0,0,0.3);
+  max-width:330px;
+  z-index:10;
+}
+img{
+  width:100%;
+  max-width:220px;
+  border-radius:20px;
+  box-shadow:0 0 25px rgba(255,105,180,1);
+  margin-bottom:12px;
+}
+button{
+  padding:12px 22px;
+  border:none;
+  border-radius:25px;
+  font-size:16px;
+  margin:8px;
+  cursor:pointer;
+}
+.yes{background:#ff2e63;color:white;}
+.no{background:white;color:#ff2e63;position:absolute;}
+.contador{margin-top:10px;font-size:14px;}
+
+.heart{
+  position:absolute;
+  animation:fall linear infinite;
+  pointer-events:none;
+}
+@keyframes fall{
+  from{transform:translateY(-10vh);opacity:1;}
+  to{transform:translateY(110vh);opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<button id="startBtn" class="yes" style="position:fixed;top:15px;z-index:20;">
+💘 Toca aquí para empezar 💘
+</button>
+
+<audio id="musica" loop>
+  <source src="straykids.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card" id="card" style="display:none;">
+  <h1>💘 Gianella 💘</h1>
+  <img src="foto.png" alt="Nosotros">
+  <p>¿Quieres ser mi San Valentín?</p>
+
+  <button class="yes" onclick="aceptar()">Sí 💕</button>
+  <button class="no" onmouseover="moverBoton(this)">No 😢</button>
+
+  <div class="contador" id="contador">
+    Presiona “Sí” 5 veces 😏
+  </div>
+</div>
+
+<script>
+let clicks=0,total=5;
+const musica=document.getElementById("musica");
+const card=document.getElementById("card");
+const startBtn=document.getElementById("startBtn");
+
+startBtn.onclick=()=>{
+  musica.play().catch(()=>{});
+  startBtn.style.display="none";
+  card.style.display="block";
+}
+
+function aceptar(){
+  if(musica.paused) musica.play().catch(()=>{});
+  clicks++;
+  document.getElementById("contador").innerText=`Vas ${clicks} / ${total} 💖`;
+  if(clicks>=total){
+    document.body.innerHTML=`
+      <div style="text-align:center;z-index:10;">
+        <h1>💞 Te amo Gianella 💞</h1>
+        <p>Eres lo más bonito que me pasó 💖</p>
+      </div>`;
+  }
+}
+
+function moverBoton(btn){
+  btn.style.top=Math.random()*80+"vh";
+  btn.style.left=Math.random()*80+"vw";
+}
+
+function lluvia(){
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerText=Math.random()>0.5?"💖":"✨";
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=(Math.random()*22+16)+"px";
+  h.style.animationDuration=(Math.random()*3+3)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+}
+setInterval(lluvia,250);
+</script>
+
+</body>
+</html>
