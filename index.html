@@ -70,7 +70,7 @@ button{
 
 <body>
 
-<!-- BOTÓN INICIAL (NECESARIO EN CELULAR) -->
+<!-- BOTÓN INICIAL (OBLIGATORIO EN CELULAR) -->
 <button id="startBtn" class="yes" style="position:fixed;top:15px;z-index:20;">
 💘 Toca aquí para empezar 💘
 </button>
@@ -84,7 +84,7 @@ button{
 <div class="card" id="card" style="display:none;">
   <h1>💘 Gianella 💘</h1>
 
-  <!-- FOTO (PNG o JPG) -->
+  <!-- FOTO -->
   <img src="foto.png" alt="Nosotros">
 
   <p>¿Quieres ser mi San Valentín?</p>
@@ -121,11 +121,9 @@ function aceptar(){
     `Vas ${clicks} / ${total} 💖`;
 
   if(clicks >= total){
-    document.body.innerHTML = `
-      <div style="text-align:center;">
-        <h1>💞 Te amo Gianella 💞</h1>
-        <p>Eres lo más bonito que me pasó 💖</p>
-      </div>
+    card.innerHTML = `
+      <h1>💞 Te amo Gianella 💞</h1>
+      <p>Eres lo más bonito que me pasó 💖</p>
     `;
   }
 }
